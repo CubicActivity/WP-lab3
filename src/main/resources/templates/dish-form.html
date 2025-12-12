@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dish Form</title>
+
+    <style>
+        div {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Add Dish Form -->
+<form th:if="${dish == null}" th:action="@{/dishes/add}" method="post">
+    <h1>Add Dish</h1>
+
+    <div>
+        <label>Dish ID</label>
+        <input type="text" name="dishId">
+    </div>
+
+    <div>
+        <label>Dish Name</label>
+        <input type="text" name="name">
+    </div>
+
+    <div>
+        <label>Cuisine</label>
+        <input type="text" name="cuisine">
+    </div>
+
+    <div>
+        <label>Preparation Time</label>
+        <input type="number" name="preparationTime">
+    </div>
+
+    <div>
+        <label>Chef</label>
+        <select name="chefId">
+            <option th:each="chef : ${chefs}"
+                    th:value="${chef.id}"
+                    th:text="${chef.firstName + ' ' + chef.lastName}">
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">Add Dish</button>
+</form>
+
+<!-- Edit Dish Form -->
+<form th:if="${dish != null}" th:action="@{/dishes/edit/{id}(id=${dish.id})}" method="post">
+    <h1>Edit Dish</h1>
+
+    <div>
+        <label>Dish ID</label>
+        <input type="text" name="dishId" th:value="${dish.dishId}">
+    </div>
+
+    <div>
+        <label>Dish Name</label>
+        <input type="text" name="name" th:value="${dish.name}">
+    </div>
+
+    <div>
+        <label>Cuisine</label>
+        <input type="text" name="cuisine" th:value="${dish.cuisine}">
+    </div>
+
+    <div>
+        <label>Preparation Time</label>
+        <input type="number" name="preparationTime" th:value="${dish.preparationTime}">
+    </div>
+
+    <div>
+        <label>Chef</label>
+        <select name="chefId">
+            <option th:each="chef : ${chefs}"
+                    th:value="${chef.id}"
+                    th:text="${chef.firstName + ' ' + chef.lastName}"
+                    th:selected="${dish.chef != null} ? ${chef.id} == ${dish.chef.id} : false">
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">Edit Dish</button>
+</form>
+
+</body>
+</html>

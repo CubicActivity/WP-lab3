@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Chef Details</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px;
+            margin: 5px 0;
+            background-color: #f5f5f5;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+<header>
+
+</header>
+<section>
+
+    <h1 th:text="'Chef: ' + ${chef.firstName} + ' ' + ${chef.lastName}"></h1>
+    <h2 th:text="${chef.getBio()}"></h2>
+    <h2>Dishes prepared by this chef:</h2>
+    <ul th:each="dish : ${chef.getDishes()}">
+        <li th:text="${dish.getDishId()} + ' ' + ${dish.getName()}"></li>
+    </ul>
+</section>
+</body>
+</html>

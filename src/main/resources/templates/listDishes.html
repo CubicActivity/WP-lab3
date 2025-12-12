@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 150px;
+            border: 1px solid black;
+            height: 25px;
+            text-align: center;
+        }
+
+        tr:first-child {
+            font-weight: bolder;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Dishes List</h1>
+
+<a href="/dishes/dish-form"><button type="submit">Add Dish</button></a>
+
+<table>
+    <tr>
+        <td>Dish ID</td>
+        <td>Dish Name</td>
+        <td>Cuisine</td>
+        <td>Preparation Time</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+    <tr th:each="dish: ${dishes}">
+        <td th:text="${dish.getDishId()}"></td>
+        <td th:text="${dish.getName()}"></td>
+        <td th:text="${dish.getCuisine()}"></td>
+        <td th:text="${dish.getPreparationTime()}"></td>
+
+        <td>
+            <form th:action="@{/dishes/dish-form/{id}(id=${dish.id})}" method="get">
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+
+        <td>
+            <form th:action="@{/dishes/delete/{id}(id=${dish.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
